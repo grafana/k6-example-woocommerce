@@ -1,4 +1,4 @@
-# k6 eCommerce Demo
+# k6 eCommerce Demo Scripts
 
 ## Introduction
 
