@@ -18,30 +18,30 @@ Please note that the server hosting the site is not scaled for heavy loads; the 
 
 The scripts, and their suggested order, are as follows:
 
-### `main.js`
+`main.js`
 
 The "master" script, where k6 `options` would be set, and the script called as part of `k6 run` (see Usage below). Its `export default function` determines what the VUs will run.
 
-### `navigateHomepage.js`
+`navigateHomepage.js`
 
 Naturally the first script to be executed. As the homepage also lists the available products on the site, it is also where these are extracted from the response, with a product selected at random and stored in `vars["selectedProduct"]`.
 
-### `addToCart.js`
+`addToCart.js`
 
 Uses (and depends on) the randomly-selected product extracted in `navigateHomepage.js`. An enhancement here might be to make all products available to it (perhaps as input data via the function parameters), such that mutiple products can be added instead of just a single one.
 
-### `navigateToCart.js`
+`navigateToCart.js`
 
 The equivalent of the user clicking "View Cart".
 
-### `navigateToCheckout.js`
+`navigateToCheckout.js`
 
 Aside from proceeding to checkout, there are also two dynamic values that need to be extracted from the response and used in the subsequent checkout itself.
 
-### `updateAddress.js`
+`updateAddress.js`
 
 This script represents an AJAX call that takes place when the user enters their address prior to checkout.
 
-### `submitCheckout.js`
+`submitCheckout.js`
 
 The final checkout of the cart. A `result: "success"` JSON value is expected in the response, and so a `check` ensures that is the case. The JSON is also expected to contain a `redirectUrl` that takes the user to the confirmation page.
