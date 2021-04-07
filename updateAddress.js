@@ -1,13 +1,9 @@
-import { sleep, group, check, fail } from "k6";
+import { group } from "k6";
 import http from "k6/http";
 
-import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";
-
 export function updateAddress() {
-  let response;
-
   group("Update Address", function () {
-    response = http.post(
+    let response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=update_order_review",
       {
         security: vars["securityToken"],

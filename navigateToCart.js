@@ -1,13 +1,9 @@
-import { sleep, group, check, fail } from "k6";
+import { group } from "k6";
 import http from "k6/http";
 
-import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";
-
 export function navigateToCart() {
-  let response;
-
   group("Navigate to Cart", function () {
-    response = http.get("http://ecommerce.test.k6.io/cart/", {
+    http.get("http://ecommerce.test.k6.io/cart/", {
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",

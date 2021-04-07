@@ -1,4 +1,4 @@
-import { sleep, group, check, fail } from "k6";
+import { group, check, fail } from "k6";
 import http, { request } from "k6/http";
 
 import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";

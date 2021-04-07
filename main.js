@@ -1,7 +1,4 @@
-import { sleep, group, check, fail } from "k6";
-import http from "k6/http";
-
-import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";
+import { sleep } from "k6";
 
 import { navigateHomepage } from "./navigateHomepage.js";
 import { addToCart } from "./addToCart.js";
@@ -33,19 +30,4 @@ export default function main() {
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
-}
-
-// regex search between two strings
-String.prototype.find = function (left, right) {
-  const regex = new RegExp(`(?:${left})(.*?)(?:${right})`, "mg");
-  const found = regex.exec(this);
-
-  if (found && found.length > 1) {
-    if (isDebug) {
-      console.log(`Found token '${found[1]}' between '${left}' and '${right}'`);
-    }
-    return found[1];
-  } else {
-    return '';
-  }
 }

@@ -1,13 +1,9 @@
 import { sleep, group, check, fail } from "k6";
 import http from "k6/http";
 
-import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";
-
 export function addToCart() {
-  let response;
-
   group("Add to Cart", function () {
-    response = http.post(
+    http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=add_to_cart",
       {
         product_sku: vars["selectedProduct"].sku,
