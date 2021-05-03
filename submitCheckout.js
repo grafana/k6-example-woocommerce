@@ -41,10 +41,18 @@ export function submitCheckout() {
       }
     );
 
-    const result = jsonpath.query(
-      response.json(),
-      "$['result']"
-    )[0];
+    let result;
+
+    try {
+      result = jsonpath.query(
+        response.json(),
+        "$['result']"
+      )[0];
+    } catch (err) {
+      // not JSON most likely, so print debug to console
+      console.error(err);
+      console.log(response.body);
+    }
 
     check(result, {
       'checkout success': (r) => r === 'success'
