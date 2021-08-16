@@ -4,7 +4,7 @@
 
 This repo contains some example k6 scripts interacting with a basic WooCommerce website hosted at http://ecommerce.test.k6.io.
 
-The scripts have been modularized so that each distinct "user action" manifests as its own source file, intended to be used from a "master" script, in this case `main.js`. Doing so promotes code reuse and maintainability, as well as catering for some degree of flexibility over the order in which the scripts should run. Obviously, products need to have been added to the cart before checkout can be completed successfully, so there is some sequence that needs to be maintained for them to work as expected.
+The scripts have been modularized so that each distinct "user action" manifests as its own source file, intended to be used from the entry script, in this case `main.js`. Doing so promotes code reuse and maintainability, as well as catering for some degree of flexibility over the order in which the scripts should run. Obviously, products need to have been added to the cart before checkout can be completed successfully, so there is some sequence that needs to be maintained for them to work as expected.
 
 ## Usage
 
