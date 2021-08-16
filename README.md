@@ -20,7 +20,7 @@ The scripts, and their suggested order, are as follows:
 
 `main.js`
 
-The "master" script, where k6 `options` would be set, and the script called as part of `k6 run` (see Usage below). Its `export default function` determines what the VUs will run.
+The entry script, where k6 `options` would be set, and the script called as part of `k6 run` (see Usage below). Its `export default function` determines what the VUs will run.
 
 `navigateHomepage.js`
 
