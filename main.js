@@ -13,19 +13,22 @@ const vars = [];
 
 const isDebug = true; // true for additonal debug
 
+const pauseMin = 2;
+const pauseMax = 5;
+
 export default function main() {
   navigateHomepage();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
   addToCart();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
   navigateToCart();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
   navigateToCheckout();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
   updateAddress();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
   submitCheckout();
-  sleep(getRandom(2, 5));
+  sleep(getRandom(pauseMin, pauseMax));
 }
 
 function getRandom(min, max) {
