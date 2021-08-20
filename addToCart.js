@@ -1,9 +1,11 @@
-import { sleep, group, check, fail } from "k6";
+import { group } from "k6";
 import http from "k6/http";
+
+import { checkStatus } from "./utils.js";
 
 export function addToCart() {
   group("Add to Cart", function () {
-    http.post(
+    let response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=add_to_cart",
       {
         product_sku: vars["selectedProduct"].sku,
@@ -24,5 +26,12 @@ export function addToCart() {
         },
       }
     );
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
+    });
   });
 }

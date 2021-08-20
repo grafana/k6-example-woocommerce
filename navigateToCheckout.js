@@ -1,9 +1,13 @@
 import { group } from "k6";
 import http from "k6/http";
 
+import { checkStatus } from "./utils.js";
+
+import { findBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
+
 export function navigateToCheckout() {
   group("Navigate to Checkout", function () {
-    const response = http.get("http://ecommerce.test.k6.io/checkout/", {
+    let response = http.get("http://ecommerce.test.k6.io/checkout/", {
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -13,6 +17,13 @@ export function navigateToCheckout() {
         host: "ecommerce.test.k6.io",
         "upgrade-insecure-requests": "1",
       },
+    });
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
     });
 
     // dynamic value: update_order_review_nonce
@@ -28,17 +39,4 @@ export function navigateToCheckout() {
       console.log("Checkout token: " + vars["checkoutToken"]);
     }
   });
-}
-
-function findBetween(content, left, right) {
-  let start = content.indexOf(left);
-  if (start == -1) {
-    return '';
-  }
-  start += left.length;
-  const end = content.indexOf(right, start);
-  if (end == -1) {
-    return '';
-  }
-  return content.substring(start, end);
 }

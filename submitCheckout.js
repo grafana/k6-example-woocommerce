@@ -3,6 +3,8 @@ import http, { request } from "k6/http";
 
 import jsonpath from "https://jslib.k6.io/jsonpath/1.0.2/index.js";
 
+import { checkStatus } from "./utils.js";
+
 export function submitCheckout() {
   let response;
 
@@ -41,6 +43,13 @@ export function submitCheckout() {
       }
     );
 
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
+    });
+
     let result;
 
     try {
@@ -53,10 +62,6 @@ export function submitCheckout() {
       console.error(err);
       console.log(response.body);
     }
-
-    check(result, {
-      'checkout success': (r) => r === 'success'
-    });
 
     vars["redirectUrl"] = jsonpath.query(
       response.json(),
@@ -90,6 +95,13 @@ export function submitCheckout() {
       }
     );
 
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
+    });
+
     response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",
       {
@@ -109,5 +121,12 @@ export function submitCheckout() {
         },
       }
     );
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
+    });
   });
 }

@@ -1,6 +1,8 @@
 import { group } from "k6";
 import http from "k6/http";
 
+import { checkStatus } from "./utils.js";
+
 export function navigateHomepage() {
   group("Navigate to Homepage", function () {
     let response = http.get("http://ecommerce.test.k6.io/", {
@@ -14,6 +16,13 @@ export function navigateHomepage() {
         host: "ecommerce.test.k6.io",
         "upgrade-insecure-requests": "1",
       },
+    });
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
     });
 
     // extract all of the available products using their "Add to Cart" buttons
@@ -60,6 +69,13 @@ export function navigateHomepage() {
         },
       }
     );
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      printOnError: true,
+      failOnError: true
+    });
   });
 }
 
