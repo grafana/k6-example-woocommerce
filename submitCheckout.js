@@ -63,6 +63,11 @@ export function submitCheckout() {
       console.log(response.body);
     }
 
+    // another check to ensure the checkout response contained 'success' in the 'result' property
+    check(result, {
+      'checkout completed successfully': (r) => r === 'success'
+    });
+
     vars["redirectUrl"] = jsonpath.query(
       response.json(),
       "$['redirect']"
