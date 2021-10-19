@@ -1,9 +1,7 @@
-import { group } from "k6";
+import { sleep, group } from "k6";
 import http from "k6/http";
-
 import { checkStatus } from "./utils.js";
-
-import { findBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
+import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function updateAddress() {
   group("Update Address", function () {
@@ -46,8 +44,8 @@ export function updateAddress() {
     checkStatus({
       response: response,
       expectedStatus: 200,
-      printOnError: true,
-      failOnError: true
+      failOnError: true,
+      printOnError: true
     });
 
     response = http.post(
@@ -85,5 +83,14 @@ export function updateAddress() {
         },
       }
     );
+
+    checkStatus({
+      response: response,
+      expectedStatus: 200,
+      failOnError: true,
+      printOnError: true
+    });
   });
+
+  sleep(randomIntBetween(pauseMin, pauseMax));
 }

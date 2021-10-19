@@ -1,7 +1,7 @@
-import { group } from "k6";
+import { sleep, group } from "k6";
 import http from "k6/http";
-
 import { checkStatus } from "./utils.js";
+import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function navigateHomepage() {
   group("Navigate to Homepage", function () {
@@ -21,8 +21,8 @@ export function navigateHomepage() {
     checkStatus({
       response: response,
       expectedStatus: 200,
-      printOnError: true,
-      failOnError: true
+      failOnError: true,
+      printOnError: true
     });
 
     // extract all of the available products using their "Add to Cart" buttons
@@ -39,21 +39,18 @@ export function navigateHomepage() {
       };
     });
 
-    if (isDebug) {
-      products.forEach(i => {
-        console.log(`Product ID: '${i.id}' SKU: '${i.sku}'`);
-      });
-    };
+    products.forEach(i => {
+      console.debug(`Product ID: '${i.id}' SKU: '${i.sku}'`);
+    });
 
     // select a random product and store in vars:
     vars["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
-
-    console.log(`Selected Product with ID: '${vars["selectedProduct"].id}' and SKU: '${vars["selectedProduct"].sku}'`);
+    console.debug(`Selected Product with ID: '${vars["selectedProduct"].id}' and SKU: '${vars["selectedProduct"].sku}'`);
 
     response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",
       {
-        time: "1613672513223",
+        time: Date.now(),
       },
       {
         headers: {
@@ -73,9 +70,10 @@ export function navigateHomepage() {
     checkStatus({
       response: response,
       expectedStatus: 200,
-      printOnError: true,
-      failOnError: true
+      failOnError: true,
+      printOnError: true
     });
   });
-}
 
+  sleep(randomIntBetween(pauseMin, pauseMax));
+}

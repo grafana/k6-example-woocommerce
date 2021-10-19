@@ -22,6 +22,10 @@ The scripts, and their suggested order, are as follows:
 
 The entry script, where k6 `options` would be set, and the script called as part of `k6 run` (see Usage below). Its `export default function` determines what the VUs will run.
 
+`utils.js`
+
+This utility script contains a single exported function `checkStatus` that can be used to verify HTTP status codes. Should the received status code be different from the expected one, a couple of booleans determine whether to print the `Response.body` (if available) and whether to `fail` (skip) the rest of the iteration.
+
 `navigateHomepage.js`
 
 Naturally the first script to be executed. As the homepage also lists the available products on the site, it is also where these are extracted from the response, with a product selected at random and stored in `vars["selectedProduct"]`.
