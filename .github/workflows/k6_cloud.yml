@@ -33,3 +33,5 @@ jobs:
           filename: main.js
           flags: -v -q # verbose, quiet
           token: ${{ secrets.K6_CLOUD_TOKEN }}
+        env:
+          K6_CLOUD_PROJECT_ID: 3526246
