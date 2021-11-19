@@ -30,4 +30,4 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: main.js
-          flags: -v
+          flags: -v -q # verbose, quiet
