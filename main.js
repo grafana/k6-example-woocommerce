@@ -7,6 +7,7 @@ import { submitCheckout } from "./submitCheckout.js";
 
 export const options = {};
 
+// used to store global variables
 const vars = [];
 
 // global min/max sleep durations (in seconds):
