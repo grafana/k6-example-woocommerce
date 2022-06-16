@@ -1,24 +1,18 @@
-import { navigateHomepage } from "./navigateHomepage.js";
-import { addToCart } from "./addToCart.js";
-import { navigateToCart } from "./navigateToCart.js";
-import { navigateToCheckout } from "./navigateToCheckout.js";
-import { updateAddress } from "./updateAddress.js";
-import { submitCheckout } from "./submitCheckout.js";
+export { browse } from './scenarios/browse.js';
+export { checkout } from './scenarios/checkout.js';
 
-export const options = {};
+const configFile = __ENV.CONFIG_FILE || './config/test.json';
+const testConfig = JSON.parse(open(configFile));
+
+export const options = Object.assign({}, testConfig);
 
 // used to store global variables
-const vars = [];
+const VARS = [];
 
 // global min/max sleep durations (in seconds):
-const pauseMin = 5;
-const pauseMax = 15;
+const PAUSE_MIN = 5;
+const PAUSE_MAX = 15;
 
-export default function main() {
-  navigateHomepage();
-  addToCart();
-  navigateToCart();
-  navigateToCheckout();
-  updateAddress();
-  submitCheckout();
+export default function() {
+  console.log("No scenarios found in config/test.json. Executing default function...");
 }

@@ -1,0 +1,23 @@
+{
+  "scenarios": {
+    "browse": {
+      "executor": "constant-vus",
+      "exec": "browse",
+      "vus": 1,
+      "duration": "5m"
+    },
+    "checkout": {
+      "executor": "constant-vus",
+      "exec": "checkout",
+      "vus": 1,
+      "duration": "5m"
+    }
+  },
+  "thresholds": {
+    "http_req_failed": [ "rate<0.01" ],
+    "http_req_duration": [ "p(95)<4000" ],
+    "group_duration{group:::Navigate to Homepage}": ["avg < 4000"],
+    "group_duration{group:::Add to Cart}": ["avg < 4000"],
+    "http_req_duration{url:http://ecommerce.test.k6.io/}": ["avg < 4000"]
+  }
+}

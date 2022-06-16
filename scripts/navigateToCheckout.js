@@ -1,6 +1,6 @@
 import { sleep, group } from "k6";
 import http from "k6/http";
-import { checkStatus } from "./utils.js";
+import { checkStatus } from "../common/utils.js";
 import { randomIntBetween, findBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function navigateToCheckout() {
@@ -25,16 +25,16 @@ export function navigateToCheckout() {
     });
 
     // dynamic value: update_order_review_nonce
-    vars["securityToken"] = findBetween(response.body, 'update_order_review_nonce":"', '"');
+    VARS["securityToken"] = findBetween(response.body, 'update_order_review_nonce":"', '"');
 
     // dynamic value: woocommerce-process-checkout-nonce
-    vars["checkoutToken"] = response
+    VARS["checkoutToken"] = response
       .html("#woocommerce-process-checkout-nonce")
       .val();
 
-    console.debug("Security token: " + vars["securityToken"]);
-    console.debug("Checkout token: " + vars["checkoutToken"]);
+    console.debug("Security token: " + VARS["securityToken"]);
+    console.debug("Checkout token: " + VARS["checkoutToken"]);
   });
 
-  sleep(randomIntBetween(pauseMin, pauseMax));
+  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
 }

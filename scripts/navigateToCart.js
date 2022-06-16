@@ -1,6 +1,6 @@
 import { sleep, group } from "k6";
 import http from "k6/http";
-import { checkStatus } from "./utils.js";
+import { checkStatus } from "../common/utils.js";
 import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.1.0/index.js";
 
 export function navigateToCart() {
@@ -25,5 +25,5 @@ export function navigateToCart() {
     });
   });
 
-  sleep(randomIntBetween(pauseMin, pauseMax));
+  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
 }

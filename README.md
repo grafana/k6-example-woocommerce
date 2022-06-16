@@ -4,48 +4,24 @@
 
 This repo contains some example k6 scripts interacting with a basic WooCommerce website hosted at http://ecommerce.test.k6.io.
 
-The scripts have been modularized so that each distinct "user action" manifests as its own source file, intended to be used from the entry script, in this case `main.js`. Doing so promotes code reuse and maintainability, as well as catering for some degree of flexibility over the order in which the scripts should run. Obviously, products need to have been added to the cart before checkout can be completed successfully, so there is some sequence that needs to be maintained for them to work as expected.
+The scripts have been written according to a template that promotes code reuse and maintainability through [Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns), such that:
+
+- Automation code (that is to say, code using the `http` module) is contained within scripts in the `scripts` folder
+- Scripts denoting the order in which the above should be executed are stored in the `scenarios` folder
+- Utility scripts containing generic functions are stored in the `common` folder
+- [Options](https://k6.io/docs/using-k6/options/) are loaded from a JSON file
+
+As a result of the above, all that remains in the entry-point script (executed using the `k6 run main.js` command), only concerns itself with:
+- Setting up global variables (typically constants) that subsequently become available throughout the rest of the codebase
+- Exporting the `options` object loaded from the JSON config file, along with using `Object.assign` to merge it with options provided in the script (best of both worlds)
+- Providing the `export` statements needed to run the exported functions in `scenarios` (see the [exec](https://k6.io/docs/using-k6/scenarios/#common-options) property)
+
+The template itself, called "vanilla", can be found [here](https://github.com/tom-miseur/k6-templates).
 
 ## Usage
 
-Please note that the server hosting the site is not scaled for heavy loads; the scripts are being provided as working examples. Only run them if you want to see what kind of feedback k6 provides when they are run as part of a test.
+Please note that the server hosting the site is not scaled for heavy load; the scripts are being provided as working examples. Only run them if you want to see what kind of feedback k6 provides when they are run as part of a test.
 
 1. Install [k6](https://k6.io) (instructions [here](https://k6.io/docs/getting-started/installation/))
 2. Clone the repo
 3. Navigate to the directory and `k6 run main.js` (make sure k6 is on your PATH)
-
-## Contents
-
-The scripts, and their suggested order, are as follows:
-
-`main.js`
-
-The entry script, where k6 `options` would be set, and the script called as part of `k6 run` (see Usage below). Its `export default function` determines what the VUs will run.
-
-`utils.js`
-
-This utility script contains a single exported function `checkStatus` that can be used to verify HTTP status codes. Should the received status code be different from the expected one, a couple of booleans determine whether to print the `Response.body` (if available) and whether to `fail` (skip) the rest of the iteration.
-
-`navigateHomepage.js`
-
-Naturally the first script to be executed. As the homepage also lists the available products on the site, it is also where these are extracted from the response, with a product selected at random and stored in `vars["selectedProduct"]`.
-
-`addToCart.js`
-
-Uses (and depends on) the randomly-selected product extracted in `navigateHomepage.js`. An enhancement here might be to make all products available to it (perhaps as input data via the function parameters), such that mutiple products can be added instead of just a single one.
-
-`navigateToCart.js`
-
-The equivalent of the user clicking "View Cart".
-
-`navigateToCheckout.js`
-
-Aside from proceeding to checkout, there are also two dynamic values that need to be extracted from the response and used in the subsequent checkout itself.
-
-`updateAddress.js`
-
-This script represents an AJAX call that takes place when the user enters their address prior to checkout.
-
-`submitCheckout.js`
-
-The final checkout of the cart. A `result: "success"` JSON value is expected in the response, and so a `check` ensures that is the case. The JSON is also expected to contain a `redirectUrl` that takes the user to the confirmation page.
