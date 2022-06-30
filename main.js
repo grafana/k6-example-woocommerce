@@ -7,7 +7,7 @@ const testConfig = JSON.parse(open(configFile));
 export const options = Object.assign({}, testConfig);
 
 // used to store global variables
-const VARS = [];
+const vars = [];
 
 // global min/max sleep durations (in seconds):
 const PAUSE_MIN = 5;
