@@ -25,16 +25,16 @@ export function navigateToCheckout() {
     });
 
     // dynamic value: update_order_review_nonce
-    VARS["securityToken"] = findBetween(response.body, 'update_order_review_nonce":"', '"');
+    globalThis.VARS["securityToken"] = findBetween(response.body, 'update_order_review_nonce":"', '"');
 
     // dynamic value: woocommerce-process-checkout-nonce
-    VARS["checkoutToken"] = response
+    globalThis.VARS["checkoutToken"] = response
       .html("#woocommerce-process-checkout-nonce")
       .val();
 
-    console.debug("Security token: " + VARS["securityToken"]);
-    console.debug("Checkout token: " + VARS["checkoutToken"]);
+    console.debug("Security token: " + globalThis.VARS["securityToken"]);
+    console.debug("Checkout token: " + globalThis.VARS["checkoutToken"]);
   });
 
-  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
+  sleep(randomIntBetween(globalThis.PAUSE_MIN, globalThis.PAUSE_MAX));
 }

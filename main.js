@@ -7,11 +7,11 @@ const testConfig = JSON.parse(open(configFile));
 export const options = Object.assign({}, testConfig);
 
 // used to store global variables
-const VARS = [];
+globalThis.VARS = [];
 
 // global min/max sleep durations (in seconds):
-const PAUSE_MIN = 5;
-const PAUSE_MAX = 15;
+globalThis.PAUSE_MIN = __ENV.PAUSE_MIN || 5;
+globalThis.PAUSE_MAX = __ENV.PAUSE_MAX || 15;
 
 export default function() {
   console.log("No scenarios found in config/test.json. Executing default function...");

@@ -25,5 +25,5 @@ export function navigateToCart() {
     });
   });
 
-  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
+  sleep(randomIntBetween(globalThis.PAUSE_MIN, globalThis.PAUSE_MAX));
 }

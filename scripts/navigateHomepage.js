@@ -43,9 +43,9 @@ export function navigateHomepage() {
       console.debug(`Product ID: '${i.id}' SKU: '${i.sku}'`);
     });
 
-    // select a random product and store in VARS:
-    VARS["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
-    console.debug(`Selected Product with ID: '${VARS["selectedProduct"].id}' and SKU: '${VARS["selectedProduct"].sku}'`);
+    // select a random product and store in globalThis.VARS:
+    globalThis.VARS["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
+    console.debug(`Selected Product with ID: '${globalThis.VARS["selectedProduct"].id}' and SKU: '${globalThis.VARS["selectedProduct"].sku}'`);
 
     response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",
@@ -75,5 +75,5 @@ export function navigateHomepage() {
     });
   });
 
-  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
+  sleep(randomIntBetween(globalThis.PAUSE_MIN, globalThis.PAUSE_MAX));
 }

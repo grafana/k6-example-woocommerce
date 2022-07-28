@@ -8,8 +8,8 @@ export function addToCart() {
     const response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=add_to_cart",
       {
-        product_sku: VARS["selectedProduct"].sku,
-        product_id: VARS["selectedProduct"].id,
+        product_sku: globalThis.VARS["selectedProduct"].sku,
+        product_id: globalThis.VARS["selectedProduct"].id,
         quantity: "1",
       },
       {
@@ -35,5 +35,5 @@ export function addToCart() {
     });
   });
 
-  sleep(randomIntBetween(PAUSE_MIN, PAUSE_MAX));
+  sleep(randomIntBetween(globalThis.PAUSE_MIN, globalThis.PAUSE_MAX));
 }
