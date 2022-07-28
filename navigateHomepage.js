@@ -44,8 +44,8 @@ export function navigateHomepage() {
     });
 
     // select a random product and store in vars:
-    vars["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
-    console.debug(`Selected Product with ID: '${vars["selectedProduct"].id}' and SKU: '${vars["selectedProduct"].sku}'`);
+    globalThis.vars["selectedProduct"] = products[Math.floor(Math.random() * products.length)];
+    console.debug(`Selected Product with ID: '${globalThis.vars["selectedProduct"].id}' and SKU: '${globalThis.vars["selectedProduct"].sku}'`);
 
     response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=get_refreshed_fragments",

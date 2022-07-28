@@ -1,10 +1,2 @@
 workspace.code-workspace
-main-cloud.js
-main-grafana.js
-main-load.js
-main-prometheus.js
-main-prometheus-local.js
-main-datadog.js
-dynatrace.js
-NOTES.TXT
-k6.exe
+/misc

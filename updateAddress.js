@@ -8,7 +8,7 @@ export function updateAddress() {
     let response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=update_order_review",
       {
-        security: vars["securityToken"],
+        security: globalThis.vars["securityToken"],
         payment_method: "cod",
         country: "US",
         state: "CO",
@@ -24,7 +24,7 @@ export function updateAddress() {
         s_address_2: "",
         has_full_address: "false",
         post_data:
-          "billing_first_name=&billing_last_name=&billing_company=&billing_country=US&billing_address_1=&billing_address_2=&billing_city=&billing_state=CO&billing_postcode=&billing_phone=&billing_email=&order_comments=&payment_method=cod&woocommerce-process-checkout-nonce=" + vars["checkoutToken"] + "&_wp_http_referer=%2Fcheckout%2F",
+          "billing_first_name=&billing_last_name=&billing_company=&billing_country=US&billing_address_1=&billing_address_2=&billing_city=&billing_state=CO&billing_postcode=&billing_phone=&billing_email=&order_comments=&payment_method=cod&woocommerce-process-checkout-nonce=" + globalThis.vars["checkoutToken"] + "&_wp_http_referer=%2Fcheckout%2F",
       },
       {
         headers: {
@@ -51,7 +51,7 @@ export function updateAddress() {
     response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=update_order_review",
       {
-        security: vars["securityToken"],
+        security: globalThis.vars["securityToken"],
         payment_method: "cod",
         country: "US",
         state: "CO",
@@ -67,7 +67,7 @@ export function updateAddress() {
         s_address_2: "",
         has_full_address: "true",
         post_data:
-          "billing_first_name=Tom&billing_last_name=Test&billing_company=&billing_country=US&billing_address_1=Street%20Address%201&billing_address_2=&billing_city=Frisco&billing_state=CO&billing_postcode=80443&billing_phone=&billing_email=&order_comments=&payment_method=cod&woocommerce-process-checkout-nonce=" + vars["checkoutToken"] + "&_wp_http_referer=%2F%3Fwc-ajax%3Dupdate_order_review",
+          "billing_first_name=Tom&billing_last_name=Test&billing_company=&billing_country=US&billing_address_1=Street%20Address%201&billing_address_2=&billing_city=Frisco&billing_state=CO&billing_postcode=80443&billing_phone=&billing_email=&order_comments=&payment_method=cod&woocommerce-process-checkout-nonce=" + globalThis.vars["checkoutToken"] + "&_wp_http_referer=%2F%3Fwc-ajax%3Dupdate_order_review",
       },
       {
         headers: {

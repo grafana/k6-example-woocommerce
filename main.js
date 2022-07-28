@@ -8,11 +8,11 @@ import { submitCheckout } from "./submitCheckout.js";
 export const options = {};
 
 // used to store global variables
-const vars = [];
+globalThis.vars = [];
 
 // global min/max sleep durations (in seconds):
-const pauseMin = 5;
-const pauseMax = 15;
+globalThis.pauseMin = 5;
+globalThis.pauseMax = 15;
 
 export default function main() {
   navigateHomepage();

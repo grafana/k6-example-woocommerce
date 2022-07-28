@@ -25,7 +25,7 @@ export function submitCheckout() {
         billing_email: "anon@k6.io",
         order_comments: "",
         payment_method: "cod",
-        "woocommerce-process-checkout-nonce": vars["checkoutToken"],
+        "woocommerce-process-checkout-nonce": globalThis.vars["checkoutToken"],
         _wp_http_referer: "/?wc-ajax=update_order_review",
       },
       {
@@ -70,26 +70,26 @@ export function submitCheckout() {
       'checkout completed successfully': (r) => r === 'success'
     });
 
-    vars["redirectUrl"] = jsonpath.query(
+    globalThis.vars["redirectUrl"] = jsonpath.query(
       response.json(),
       "$['redirect']"
     )[0];
 
-    if (!vars["redirectUrl"]) {
+    if (!globalThis.vars["redirectUrl"]) {
       fail(`Checkout failed: no redirect URL in response:\n${response.body}`);
     }
 
-    console.debug("Checkout redirect URL: " + vars["redirectUrl"]);
+    console.debug("Checkout redirect URL: " + globalThis.vars["redirectUrl"]);
 
     // the order ID is in the redirectUrl
-    vars["orderId"] = findBetween(vars["redirectUrl"], 'order-received/', '/');
-    vars["key"] = vars["redirectUrl"].substring(vars["redirectUrl"].indexOf('key=') + 4);
+    globalThis.vars["orderId"] = findBetween(globalThis.vars["redirectUrl"], 'order-received/', '/');
+    globalThis.vars["key"] = globalThis.vars["redirectUrl"].substring(globalThis.vars["redirectUrl"].indexOf('key=') + 4);
 
-    console.debug("orderId: " + vars["orderId"]);
-    console.debug("key: " + vars["key"]);
+    console.debug("orderId: " + globalThis.vars["orderId"]);
+    console.debug("key: " + globalThis.vars["key"]);
 
-    if (vars["orderId"].length > 0) {
-      console.log("Successfully placed order! ID: " + vars["orderId"]);
+    if (globalThis.vars["orderId"].length > 0) {
+      console.log("Successfully placed order! ID: " + globalThis.vars["orderId"]);
     } else {
       if (response.body) {
         fail("Failed to place order: " + response.body);
@@ -99,7 +99,7 @@ export function submitCheckout() {
     }
 
     response = http.get(
-      vars["redirectUrl"],
+      globalThis.vars["redirectUrl"],
       {
         tags: {
           name: "http://ecommerce.test.k6.io/checkout/order-received/"
@@ -122,8 +122,8 @@ export function submitCheckout() {
       failOnError: true,
       printOnError: true,
       dynamicIds: [
-        vars["orderId"],
-        vars["key"]
+        globalThis.vars["orderId"],
+        globalThis.vars["key"]
       ]
     });
 

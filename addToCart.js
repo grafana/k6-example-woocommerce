@@ -8,8 +8,8 @@ export function addToCart() {
     const response = http.post(
       "http://ecommerce.test.k6.io/?wc-ajax=add_to_cart",
       {
-        product_sku: vars["selectedProduct"].sku,
-        product_id: vars["selectedProduct"].id,
+        product_sku: globalThis.vars["selectedProduct"].sku,
+        product_id: globalThis.vars["selectedProduct"].id,
         quantity: "1",
       },
       {

@@ -28,7 +28,7 @@ This utility script contains a single exported function `checkStatus` that can b
 
 `navigateHomepage.js`
 
-Naturally the first script to be executed. As the homepage also lists the available products on the site, it is also where these are extracted from the response, with a product selected at random and stored in `vars["selectedProduct"]`.
+Naturally the first script to be executed. As the homepage also lists the available products on the site, it is also where these are extracted from the response, with a product selected at random and stored in `globalThis.vars["selectedProduct"]`.
 
 `addToCart.js`
 
