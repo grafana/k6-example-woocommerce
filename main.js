@@ -5,7 +5,8 @@ import { navigateToCheckout } from "./navigateToCheckout.js";
 import { updateAddress } from "./updateAddress.js";
 import { submitCheckout } from "./submitCheckout.js";
 
-export const options = {};
+export const options = {
+};
 
 // used to store global variables
 globalThis.vars = [];
