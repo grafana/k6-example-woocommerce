@@ -28,6 +28,7 @@ jobs:
       
       - name: Run Test
         uses: grafana/k6-action@v0.2.0
+        id: runtest
         with:
           cloud: true
           filename: main.js
@@ -35,3 +36,5 @@ jobs:
           token: ${{ secrets.K6_CLOUD_TOKEN }}
         env:
           K6_CLOUD_PROJECT_ID: 3526246
+      - name: Parse test run ID
+        run: echo ${{ steps.runtest.outputs }}
