@@ -35,4 +35,4 @@ jobs:
           flags: -v -q # verbose, quiet
           token: ${{ secrets.K6_CLOUD_TOKEN }}
         env:
-          K6_CLOUD_PROJECT_ID: 3526246
+          K6_CLOUD_PROJECT_ID: 3683206
