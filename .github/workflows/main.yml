@@ -24,7 +24,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       
       - name: Run Test
         uses: grafana/k6-action@v0.2.0
