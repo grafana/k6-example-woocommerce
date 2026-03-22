@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v1
       
       - name: Run Test
-        uses: grafana/k6-action@v0.2.0
+        uses: grafana/k6-action@e4714b734f2b0afaabeb7b4a69142745548ab9ec # v0.3.1
         with:
           filename: main.js
           flags: -v -q # verbose, quiet
