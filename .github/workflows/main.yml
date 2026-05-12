@@ -24,10 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1
       
       - name: Run Test
-        uses: grafana/k6-action@v0.2.0
+        uses: grafana/k6-action@55845c6c2e400af4356c84e5b514aeabb1bfdbd4 # v0.2.0
         with:
           filename: main.js
           flags: -v -q # verbose, quiet
